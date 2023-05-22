@@ -396,3 +396,8 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+buyandsell.db
+buyandsell.db-shm
+buyandsell.db-wal
+/BuySell.Host/buyandsell.db-wal
