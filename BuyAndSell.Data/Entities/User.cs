@@ -11,7 +11,7 @@ namespace BuyAndSell.Data.Entities
     {
         public string FirstName { get; set; } = default!;
         public string LastName { get; set; } = default!;
-        public virtual List<RefreshToken> RefreshTokens { get; set; } = default!;
+        public virtual List<RefreshToken> RefreshTokens { get; set; } = new();
         public virtual ICollection<Role> Roles { get; set; } = default!;
         public DateTime? DateOfBirth { get; set; }
         public string? Address { get; set; }

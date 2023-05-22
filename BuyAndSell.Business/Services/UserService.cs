@@ -163,9 +163,12 @@ namespace BuyAndSell.Business.Services
 
             if (dto.Role.Equals(RoleEnum.Buyer.ToString(), StringComparison.CurrentCultureIgnoreCase))
             {
-                await _userManager.CreateAsync(user, RoleEnum.Active.ToString());
+                await _userManager.AddToRoleAsync(user, RoleEnum.Active.ToString());
                 return user;
             }
+
+            user = await _userRepository.GetAsync(x => x.UserName == dto.UserName) ?? 
+                throw new NotFoundException("Nije pronadjes korisnik sa datim username-om");
 
             UserStatus status = new()
             {

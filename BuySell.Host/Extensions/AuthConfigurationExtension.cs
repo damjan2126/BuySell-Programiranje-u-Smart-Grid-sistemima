@@ -50,6 +50,13 @@ namespace BuySell.Host.Extensions
                           policy.AuthenticationSchemes = new List<string>() { JwtBearerDefaults.AuthenticationScheme };
                           policy.RequireClaim("Roles", new List<string>() { "Buyer" });
                       });
+
+                opt.AddPolicy("Active",
+                      policy =>
+                      {
+                          policy.AuthenticationSchemes = new List<string>() { JwtBearerDefaults.AuthenticationScheme };
+                          policy.RequireClaim("Roles", new List<string>() { "Active" });
+                      });
             });
 
             builder.Services.AddScoped<IUserService, UserService>();
