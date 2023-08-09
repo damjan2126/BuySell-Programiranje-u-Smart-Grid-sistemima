@@ -401,3 +401,5 @@ FodyWeavers.xsd
 */buyandsell.db-shm
 */buyandsell.db-wal
 
+/BuySell.Host/wwwroot/NAS/*
+
