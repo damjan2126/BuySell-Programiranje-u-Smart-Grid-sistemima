@@ -5,6 +5,9 @@ namespace BuySell.Host.Extensions
 {
     public static class HostConfigurationExtension
     {
+        /// <summary>
+        /// Services configuration
+        /// </summary>
         public static void ConfigureHost(this WebApplicationBuilder builder)
         {
             builder.ConfigureSwagger();
