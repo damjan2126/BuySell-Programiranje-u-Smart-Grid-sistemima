@@ -32,13 +32,15 @@ namespace BuySell.Business.Services
         private readonly IUserStatusRepository _userStatusRepository;
         private readonly AuthorizationSettings _authSettings;
         private readonly IMapper _mapper;
+        private readonly IEmailRepository _emailRepository;
 
         public UserService(IOptions<AuthorizationSettings> authSettings,
                            SignInManager<User> signInManager,
                            UserManager<User> userManager,
                            IUserRepository userRepository,
                            IUserStatusRepository userStatusRepository,
-                           IMapper mapper)
+                           IMapper mapper,
+                           IEmailRepository emailRepository)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -46,6 +48,7 @@ namespace BuySell.Business.Services
             _userStatusRepository = userStatusRepository;
             _authSettings = authSettings.Value;
             _mapper = mapper;
+            _emailRepository = emailRepository;
         }
 
         public async Task<AuthenticateResponseDto?> AuthenticateAsync(AuthenticateRequestDto model)
@@ -241,7 +244,23 @@ namespace BuySell.Business.Services
 
             await _userManager.AddToRoleAsync(user, RoleEnum.Active.ToString());
 
+            await SendEmail(user.Email, "Registration status update", "Registration accepted", adminId);
+
             return true;
+        }
+
+        private async Task SendEmail(string email, string subject, string body, long senderId, bool isHtml = false)
+        {
+            await _emailRepository.CreateEmailAsync(new List<Email>() { new Email()
+            {
+                To = email,
+                Subject = subject,
+                Body = body,
+                IsHtml = isHtml,
+                Status = (int)EmailStatus.New,
+                CreatedByUserId = senderId,
+                UpdatedByUserId = senderId
+            }});
         }
 
         public async Task<bool> RejectSeller(long userId, long adminId)
@@ -263,6 +282,11 @@ namespace BuySell.Business.Services
             };
 
             await _userStatusRepository.CreateAsync(newStatus);
+
+            var user = await GetUserByIdAsync(userId, new Query()) ??
+                throw new NotFoundException("Nije pronadjen korisnik sa datim id-jem");
+
+            await SendEmail(user.Email, "Registration status update", "Registration rejected", adminId);
 
             return true;
         }

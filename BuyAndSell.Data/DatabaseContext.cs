@@ -22,6 +22,7 @@ namespace BuySell.Data
         public DbSet<User> AppUsers { get; set; } = default!;
         public DbSet<UserStatus> UserStatus { get; set; } = default!;
         public DbSet<RefreshToken> RefreshTokens { get; set; } = default!;
+        public DbSet<Email> Emails { get; set; } = default!;
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UserConfiguration());

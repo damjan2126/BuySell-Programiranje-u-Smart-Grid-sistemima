@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using BuySell.Business.Settings;
 using BuySell.Host.Middlewares;
 
 namespace BuySell.Host.Extensions
@@ -31,6 +32,8 @@ namespace BuySell.Host.Extensions
             });
 
             builder.ConfigureAuth();
+            builder.Services.Configure<EmailConfigurationSettings>(builder.Configuration.GetSection("EmailConfigurationSettings"));
+            builder.Services.Configure<EmailSettings>(builder.Configuration.GetSection("EmailSettings"));
         }
 
         /// <summary>
