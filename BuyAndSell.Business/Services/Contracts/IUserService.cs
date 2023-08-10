@@ -17,5 +17,6 @@ namespace BuySell.Business.Services.Contracts
         Task<bool> UpdateUserAsync(UserUpdateDto dto, long userId);
         Task<bool> ApproveSeller(long userId, long adminId);
         Task<bool> RejectSeller(long userId, long adminId);
+        Task<UserStatus> GetCurrentStatus(long id);
     }
 }

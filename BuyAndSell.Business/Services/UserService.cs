@@ -210,6 +210,12 @@ namespace BuySell.Business.Services
                 : true;
         }
 
+        public async Task<UserStatus> GetCurrentStatus(long id)
+        {
+            return await _userStatusRepository.GetCurrentStatus(id) ??
+                    throw new NotFoundException("Nije pronadjen status za korisnika sa zadatim id-jem");
+        }
+
         public async Task<bool> ApproveSeller(long userId, long adminId)
         {
             var status = await _userStatusRepository.GetCurrentStatus(userId) ??
