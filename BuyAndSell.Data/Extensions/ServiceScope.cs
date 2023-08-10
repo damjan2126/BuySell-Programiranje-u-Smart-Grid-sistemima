@@ -1,4 +1,5 @@
-﻿using BuyAndSell.Data.Entities;
+﻿using BuySell.Data;
+using BuySell.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -8,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuyAndSell.Data.Extensions
+namespace BuySell.Data.Extensions
 {
     public static class ServiceScope
     {

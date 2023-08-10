@@ -1,5 +1,4 @@
-﻿using BuyAndSell.Data.Entities;
-using BuySell.Data.Enums;
+﻿using BuySell.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;

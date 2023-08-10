@@ -1,8 +1,8 @@
-﻿using BuyAndSell.Data.Entities;
-using BuyAndSell.Data.Resources;
+﻿using BuySell.Data.Entities;
+using BuySell.Data.Resources;
 using System.Linq.Expressions;
 
-namespace BuyAndSell.Data.Repositories.Contracts
+namespace BuySell.Data.Repositories.Contracts
 {
     public interface IUserRepository
     {

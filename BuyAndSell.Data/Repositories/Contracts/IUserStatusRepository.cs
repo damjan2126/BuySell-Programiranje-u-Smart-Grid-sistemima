@@ -1,5 +1,4 @@
-﻿using BuyAndSell.Data.Repositories.Contracts;
-using BuySell.Data.Entities;
+﻿using BuySell.Data.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +9,6 @@ namespace BuySell.Data.Repositories.Contracts
 {
     public interface IUserStatusRepository : IBaseRepository<UserStatus>
     {
+        Task<UserStatus?> GetCurrentStatus(long userId);
     }
 }

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace BuySell.Host.Validators;
+namespace BuySell.Host.Validators.Images;
 
 public class ImagesValidator : AbstractValidator<List<IFormFile>>
 {

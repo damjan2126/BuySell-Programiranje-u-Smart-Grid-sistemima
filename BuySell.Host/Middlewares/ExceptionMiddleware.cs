@@ -1,4 +1,4 @@
-﻿using BuyAndSell.Contracts.Exceptions;
+﻿using BuySell.Contracts.Exceptions;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;

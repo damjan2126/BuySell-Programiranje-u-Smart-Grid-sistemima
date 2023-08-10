@@ -1,5 +1,5 @@
-﻿using BuyAndSell.Contracts.Exceptions;
-using BuyAndSell.Data.Enums;
+﻿using BuySell.Contracts.Exceptions;
+using BuySell.Data.Enums;
 using System.Security.Claims;
 using System.Text.Json;
 

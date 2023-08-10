@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuyAndSell.Data.Entities
+namespace BuySell.Data.Entities
 {
     public class User : IdentityUser<long>
     {
@@ -17,6 +17,6 @@ namespace BuyAndSell.Data.Entities
         public string? Address { get; set; }
         public string? ImageUrl { get; set; }
         public DateTime? LastLoginDate { get; set; }
-        public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;  
+        public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
     }
 }

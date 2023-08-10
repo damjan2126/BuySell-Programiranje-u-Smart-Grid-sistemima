@@ -1,7 +1,6 @@
-﻿using BuyAndSell.Data;
-using BuyAndSell.Data.Repositories;
-using BuySell.Data.Entities;
+﻿using BuySell.Data.Entities;
 using BuySell.Data.Repositories.Contracts;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +13,11 @@ namespace BuySell.Data.Repositories
     {
         public UserStatusRepository(DatabaseContext ctx) : base(ctx)
         {
+        }
+
+        public async Task<UserStatus?> GetCurrentStatus (long userId)
+        {
+            return await Ctx.UserStatus.Where(x => x.UserId == userId).OrderByDescending(x => x.CreatedAtUtc).FirstOrDefaultAsync();
         }
     }
 }

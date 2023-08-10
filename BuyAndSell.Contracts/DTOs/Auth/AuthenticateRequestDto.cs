@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuyAndSell.Contracts.DTOs.Auth
+namespace BuySell.Contracts.DTOs.Auth
 {
     public class AuthenticateRequestDto
     {

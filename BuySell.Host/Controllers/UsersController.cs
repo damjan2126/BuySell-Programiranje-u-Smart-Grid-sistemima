@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
-using BuyAndSell.Business.Services.Contracts;
-using BuyAndSell.Contracts.DTOs.Auth;
-using BuyAndSell.Contracts.DTOs.User;
-using BuyAndSell.Contracts.Exceptions;
-using BuyAndSell.Data.Enums;
-using BuyAndSell.Data.Resources;
+using BuySell.Contracts.Exceptions;
+using BuySell.Data.Enums;
+using BuySell.Business.Services.Contracts;
+using BuySell.Contracts.DTOs.Auth;
+using BuySell.Contracts.DTOs.User;
+using BuySell.Data.Resources;
 using BuySell.Host.Extensions;
 using BuySell.Host.Validators.User;
 using FluentValidation;
@@ -26,6 +26,13 @@ namespace BuySell.Host.Controllers
         {
             _userService = userService;
             _mapper = mapper;
+        }
+
+        [HttpGet("test")]
+        [Authorize(Policy = "ActiveSeller")]
+        public async Task<IActionResult> Test()
+        {
+            return Ok();
         }
 
         [HttpGet]
@@ -60,7 +67,21 @@ namespace BuySell.Host.Controllers
 
             return Ok();
         }
-        
+
+        [HttpPost("{userId}/approve")]
+        [Authorize(Policy ="Admin")]
+        public async Task<IActionResult> ApproveSeller([FromQuery] long userId)
+        { 
+            return Ok(await _userService.ApproveSeller(userId, User.GetUserId()));
+        }
+
+        [HttpPost("{userId}/reject")]
+        [Authorize(Policy = "Admin")]
+        public async Task<IActionResult> RejectSeller([FromQuery] long userId)
+        {
+            return Ok(await _userService.RejectSeller(userId, User.GetUserId()));
+        }
+
         [HttpPut("{id}")]
         [Authorize(Policy = "Active")]
         public async Task<IActionResult> UpdateUser(long id,[FromBody] UserUpdateDto dto)

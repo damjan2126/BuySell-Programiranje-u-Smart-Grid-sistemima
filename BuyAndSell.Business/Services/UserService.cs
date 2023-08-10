@@ -1,16 +1,13 @@
 ﻿using AutoMapper;
-using BuyAndSell.Business.Services.Contracts;
-using BuyAndSell.Business.Settings;
-using BuyAndSell.Contracts.DTOs.Auth;
-using BuyAndSell.Contracts.DTOs.User;
-using BuyAndSell.Contracts.Exceptions;
-using BuyAndSell.Data.Entities;
-using BuyAndSell.Data.Enums;
-using BuyAndSell.Data.Repositories.Contracts;
-using BuyAndSell.Data.Resources;
+using BuySell.Contracts.Exceptions;
+using BuySell.Business.Services.Contracts;
+using BuySell.Business.Settings;
+using BuySell.Contracts.DTOs.Auth;
+using BuySell.Contracts.DTOs.User;
 using BuySell.Data.Entities;
 using BuySell.Data.Enums;
 using BuySell.Data.Repositories.Contracts;
+using BuySell.Data.Resources;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -25,7 +22,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuyAndSell.Business.Services
+namespace BuySell.Business.Services
 {
     public class UserService : IUserService
     {
@@ -152,7 +149,7 @@ namespace BuyAndSell.Business.Services
 
             var user = _mapper.Map<User>(dto);
             user.CreatedAtUtc = DateTime.UtcNow;
-            
+
             var result = await _userManager.CreateAsync(user, dto.Password);
 
             if (!result.Succeeded) throw new DatabaseException("Greška prilikom kreiranja novog korisnika");
@@ -167,7 +164,7 @@ namespace BuyAndSell.Business.Services
                 return user;
             }
 
-            user = await _userRepository.GetAsync(x => x.UserName == dto.UserName) ?? 
+            user = await _userRepository.GetAsync(x => x.UserName == dto.UserName) ??
                 throw new NotFoundException("Nije pronadjes korisnik sa datim username-om");
 
             UserStatus status = new()
@@ -180,7 +177,7 @@ namespace BuyAndSell.Business.Services
 
             await _userStatusRepository.CreateAsync(status);
 
-            return user;  
+            return user;
         }
 
         public async Task<bool> UpdateUserAsync(UserUpdateDto dto, long id)
@@ -211,6 +208,57 @@ namespace BuyAndSell.Business.Services
             return !result.Succeeded
                 ? throw new DatabaseException("Greška prilikom izmene sifre")
                 : true;
+        }
+
+        public async Task<bool> ApproveSeller(long userId, long adminId)
+        {
+            var status = await _userStatusRepository.GetCurrentStatus(userId) ??
+                throw new NotFoundException("Nije pronadjen status za korisnika sa zadatim id-jem");
+
+            if (status.Status != UserStatusEnum.Processing)
+            {
+                throw new MethodNotAllowedException("Korisnik nije u stanju processing");
+            }
+
+            UserStatus newStatus = new()
+            {
+                CreatedByUserId = adminId,
+                UpdatedByUserId = adminId,
+                UserId = userId,
+                Status = UserStatusEnum.Accepted
+            };
+
+            await _userStatusRepository.CreateAsync(newStatus);
+
+            var user = await GetUserByIdAsync(userId, new Query()) ??
+                throw new NotFoundException("Nije pronadjen korisnik sa datim id-jem");
+
+            await _userManager.AddToRoleAsync(user, RoleEnum.Active.ToString());
+
+            return true;
+        }
+
+        public async Task<bool> RejectSeller(long userId, long adminId)
+        {
+            var status = await _userStatusRepository.GetCurrentStatus(userId) ??
+                throw new NotFoundException("Nije pronadjen status za korisnika sa zadatim id-jem");
+
+            if (status.Status != UserStatusEnum.Processing)
+            {
+                throw new MethodNotAllowedException("Korisnik nije u stanju processing");
+            }
+
+            UserStatus newStatus = new()
+            {
+                CreatedByUserId = adminId,
+                UpdatedByUserId = adminId,
+                UserId = userId,
+                Status = UserStatusEnum.Rejected
+            };
+
+            await _userStatusRepository.CreateAsync(newStatus);
+
+            return true;
         }
 
         private string GenerateJwtToken(User user, IEnumerable<string> userRoles, DateTime expirationTime)

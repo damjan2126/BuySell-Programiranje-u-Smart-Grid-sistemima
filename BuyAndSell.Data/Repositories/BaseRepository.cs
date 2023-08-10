@@ -1,13 +1,13 @@
-﻿using BuyAndSell.Data.Entities;
-using BuyAndSell.Data.Extensions;
-using BuyAndSell.Data.Repositories.Contracts;
-using BuyAndSell.Data.Resources;
+﻿using BuySell.Data.Entities;
+using BuySell.Data.Extensions;
+using BuySell.Data.Repositories.Contracts;
+using BuySell.Data.Resources;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Linq.Expressions;
 
 
-namespace BuyAndSell.Data.Repositories
+namespace BuySell.Data.Repositories
 {
     public abstract class BaseRepository<TEntityModel> : IBaseRepository<TEntityModel> where TEntityModel : Base
     {
@@ -24,7 +24,7 @@ namespace BuyAndSell.Data.Repositories
             await Entity.AddAsync(entity);
             await Ctx.SaveChangesAsync();
 
-            Ctx.Entry<TEntityModel>(entity).State = EntityState.Detached;
+            Ctx.Entry(entity).State = EntityState.Detached;
             return entity;
         }
 

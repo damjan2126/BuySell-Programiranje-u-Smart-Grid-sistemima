@@ -1,4 +1,4 @@
-﻿using BuyAndSell.Data.Entities;
+﻿using BuySell.Data.Entities;
 using BuySell.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;

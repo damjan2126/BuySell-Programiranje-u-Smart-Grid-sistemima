@@ -1,12 +1,12 @@
-﻿using BuyAndSell.Data.Entities;
-using BuyAndSell.Data.Resources;
+﻿using BuySell.Data.Entities;
+using BuySell.Data.Resources;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 using System.Reflection;
 
 
 
-namespace BuyAndSell.Data.Extensions
+namespace BuySell.Data.Extensions
 {
     public static class QueryExtensions
     {
@@ -134,7 +134,7 @@ namespace BuyAndSell.Data.Extensions
         {
             return !asNoTracking ? source : source.AsNoTracking();
         }
- 
+
         public static IQueryable<T> FilterBy<T, TQuery>(this IQueryable<T> source, TQuery query) where TQuery : Query
         {
             var props = query

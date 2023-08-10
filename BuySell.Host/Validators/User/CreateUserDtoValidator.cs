@@ -1,5 +1,5 @@
-﻿using BuyAndSell.Contracts.DTOs.User;
-using BuyAndSell.Data.Enums;
+﻿using BuySell.Contracts.DTOs.User;
+using BuySell.Data.Enums;
 using FluentValidation;
 
 namespace BuySell.Host.Validators.User

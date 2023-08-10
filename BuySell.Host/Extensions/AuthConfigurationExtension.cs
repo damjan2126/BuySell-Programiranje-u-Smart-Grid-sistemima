@@ -1,6 +1,6 @@
-﻿using BuyAndSell.Business.Services;
-using BuyAndSell.Business.Services.Contracts;
-using BuyAndSell.Business.Settings;
+﻿using BuySell.Business.Services;
+using BuySell.Business.Services.Contracts;
+using BuySell.Business.Settings;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -57,6 +57,21 @@ namespace BuySell.Host.Extensions
                           policy.AuthenticationSchemes = new List<string>() { JwtBearerDefaults.AuthenticationScheme };
                           policy.RequireClaim("Roles", new List<string>() { "Active" });
                       });
+
+                opt.AddPolicy("ActiveSeller",
+                    policy =>
+                    {
+                        policy.AuthenticationSchemes = new List<string>() { JwtBearerDefaults.AuthenticationScheme };
+                        policy.RequireAssertion(context =>
+                        {
+                            var user = context.User;
+
+                            var hasSellerClaim = user.HasClaim(c => c.Type == "Roles" && c.Value == "Seller");
+                            var hasActiveClaim = user.HasClaim(c => c.Type == "Roles" && c.Value == "Active");
+
+                            return hasSellerClaim && hasActiveClaim;
+                        });
+                    });
             });
 
             builder.Services.AddScoped<IUserService, UserService>();

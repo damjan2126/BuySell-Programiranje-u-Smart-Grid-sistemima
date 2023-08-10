@@ -1,9 +1,9 @@
-﻿using BuyAndSell.Data.Entities;
-using BuyAndSell.Data.Resources;
+﻿using BuySell.Data.Entities;
+using BuySell.Data.Resources;
 using Microsoft.EntityFrameworkCore.Storage;
 using System.Linq.Expressions;
 
-namespace BuyAndSell.Data.Repositories.Contracts
+namespace BuySell.Data.Repositories.Contracts
 {
     public interface IBaseRepository<TEntityModel> where TEntityModel : Base
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuyAndSell.Contracts.Exceptions
+namespace BuySell.Contracts.Exceptions
 {
     public class ValidationFailureResponse
     {

@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BuyAndSell.Contracts.DTOs.User
+namespace BuySell.Contracts.DTOs.User
 {
     public class UserCreateDto
     {

@@ -1,14 +1,12 @@
-﻿using BuyAndSell.Data.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
-using BuyAndSell.Data.Repositories.Contracts;
-using BuyAndSell.Data.Repositories;
 using BuySell.Data.Repositories.Contracts;
 using BuySell.Data.Repositories;
+using BuySell.Data.Entities;
 
-namespace BuyAndSell.Data.Extensions
+namespace BuySell.Data.Extensions
 {
     public static class ServiceCollection
     {

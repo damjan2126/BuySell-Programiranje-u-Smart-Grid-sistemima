@@ -1,8 +1,6 @@
-﻿using BuyAndSell.Business.MappingProfiles;
-using BuyAndSell.Business.Services;
-using BuyAndSell.Business.Services.Contracts;
-using BuySell.Business.Services.Contracts;
+﻿using BuySell.Business.Services.Contracts;
 using BuySell.Business.Services;
+using BuySell.Business.MappingProfiles;
 
 namespace BuySell.Host.Extensions
 {

@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuyAndSell.Contracts.Exceptions
+namespace BuySell.Contracts.Exceptions
 {
     public class MethodNotAllowedException : Exception
     {

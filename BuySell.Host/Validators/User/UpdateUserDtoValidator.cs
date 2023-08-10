@@ -1,4 +1,4 @@
-﻿using BuyAndSell.Contracts.DTOs.User;
+﻿using BuySell.Contracts.DTOs.User;
 using FluentValidation;
 
 namespace BuySell.Host.Validators.User

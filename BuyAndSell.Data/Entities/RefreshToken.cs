@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuyAndSell.Data.Entities
+namespace BuySell.Data.Entities
 {
     public class RefreshToken
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuyAndSell.Business.Settings
+namespace BuySell.Business.Settings
 {
     public class AuthorizationSettings
     {

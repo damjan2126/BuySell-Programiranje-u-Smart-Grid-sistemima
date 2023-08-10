@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuyAndSell.Data.Entities
+namespace BuySell.Data.Entities
 {
-    public abstract  class Base
+    public abstract class Base
     {
         public long Id { get; set; }
         public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;

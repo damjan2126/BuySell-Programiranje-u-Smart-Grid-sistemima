@@ -6,13 +6,11 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BuyAndSell.Data.Entities;
 using Microsoft.EntityFrameworkCore;
-using BuyAndSell.Data.Configurations;
-using BuySell.Data.Entities;
 using BuySell.Data.Configurations;
+using BuySell.Data.Entities;
 
-namespace BuyAndSell.Data
+namespace BuySell.Data
 {
     public class DatabaseContext : IdentityDbContext<User, Role, long,
     IdentityUserClaim<long>, IdentityUserRole<long>, IdentityUserLogin<long>,

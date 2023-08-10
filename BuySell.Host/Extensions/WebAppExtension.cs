@@ -1,4 +1,4 @@
-﻿using BuyAndSell.Data.Extensions;
+﻿using BuySell.Data.Extensions;
 
 namespace BuySell.Host.Extensions
 {

@@ -1,5 +1,5 @@
-﻿using BuyAndSell.Data.Entities;
-using BuyAndSell.Data.Enums;
+﻿using BuySell.Data.Entities;
+using BuySell.Data.Enums;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
-namespace BuyAndSell.Data
+namespace BuySell.Data
 {
     public class DbInitializer
     {
@@ -33,18 +33,18 @@ namespace BuyAndSell.Data
 
                 foreach (var role in roles)
                     await _roleManager.CreateAsync(new Role { Name = role });
-               
+
                 var user = new User
                 {
                     Email = "admin@buy-and-sell.com",
                     UserName = "admin@buy-and-sell.com",
                     FirstName = "Admin",
-                    LastName = "Admin",                    
+                    LastName = "Admin",
                 };
                 var result = await _userManager.CreateAsync(user, "String123");
                 if (result.Succeeded)
                 {
-                    foreach(var role in roles)
+                    foreach (var role in roles)
                         await _userManager.AddToRoleAsync(user, role);
                 }
                 await _context.SaveChangesAsync();

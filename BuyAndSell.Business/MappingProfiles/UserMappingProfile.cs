@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using BuyAndSell.Contracts.DTOs.User;
-using BuyAndSell.Data.Entities;
-using BuyAndSell.Data.Resources;
+using BuySell.Contracts.DTOs.User;
+using BuySell.Data.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using BuySell.Data.Entities;
 
-namespace BuyAndSell.Business.MappingProfiles
+namespace BuySell.Business.MappingProfiles
 {
     public class UserMappingProfile : Profile
     {

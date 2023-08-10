@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuyAndSell.Data.Resources
+namespace BuySell.Data.Resources
 {
     public class UserQuery : Query
     {

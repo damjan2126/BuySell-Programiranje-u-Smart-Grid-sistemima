@@ -1,5 +1,5 @@
 ﻿using BuySell.Business.Services.Contracts;
-using BuySell.Host.Validators;
+using BuySell.Host.Validators.Images;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;

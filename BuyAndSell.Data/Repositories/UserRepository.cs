@@ -1,7 +1,7 @@
-﻿using BuyAndSell.Data.Entities;
-using BuyAndSell.Data.Extensions;
-using BuyAndSell.Data.Repositories.Contracts;
-using BuyAndSell.Data.Resources;
+﻿using BuySell.Data.Entities;
+using BuySell.Data.Extensions;
+using BuySell.Data.Repositories.Contracts;
+using BuySell.Data.Resources;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BuyAndSell.Data.Repositories
+namespace BuySell.Data.Repositories
 {
     public class UserRepository : IUserRepository
     {
