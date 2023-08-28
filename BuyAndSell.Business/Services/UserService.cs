@@ -315,5 +315,12 @@ namespace BuySell.Business.Services
             rng.GetBytes(randomNumber);
             return Convert.ToBase64String(randomNumber);
         }
+
+        public async Task<IEnumerable<UserStatus>?> GetPendingSellers()
+        {
+            var pendingSellers = await _userStatusRepository.GetAllAsync(x => x.Status.Equals(UserStatusEnum.Processing));
+
+            return pendingSellers.IsNullOrEmpty() ? null : pendingSellers;
+        }
     }
 }

@@ -48,18 +48,20 @@ namespace BuySell.Data.Repositories
                 .LongCountAsync();
         }
 
-        public async Task<User?> Get(Expression<Func<User, bool>> predicate, bool asNoTracking = false)
-        {
-            return await _ctx.Users
-                .AddAsNoTracking(asNoTracking)
-                .FirstOrDefaultAsync(predicate);
-        }
-
         public async Task RemoveAllTokensAsync(long userId)
         {
             var tokens = await _ctx.RefreshTokens.Where(x => x.UserId == userId).ToListAsync();
             _ctx.RefreshTokens.RemoveRange(tokens);
             await _ctx.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<User>> GetAllAsync(Expression<Func<User, bool>> predicate, bool asNoTracking = false)
+        {
+            return await _ctx.Users
+                .Include(x => x.Roles)
+                .Where(predicate)
+                .AddAsNoTracking(asNoTracking)
+                .ToListAsync();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using BuySell.Data.Enums;
+﻿using BuySell.Contracts.DTOs.User;
+using BuySell.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,5 +12,6 @@ namespace BuySell.Contracts.DTOs.UserStatus
     {
         public UserStatusEnum Status { get; set; }
         public DateTime CreatedAtUtc { get; set; }
+        public UserViewDto User { get; set; } = default!;
     }
 }

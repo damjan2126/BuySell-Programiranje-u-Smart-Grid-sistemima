@@ -18,5 +18,6 @@ namespace BuySell.Business.Services.Contracts
         Task<bool> ApproveSeller(long userId, long adminId);
         Task<bool> RejectSeller(long userId, long adminId);
         Task<UserStatus> GetCurrentStatus(long id);
+        Task<IEnumerable<UserStatus>?> GetPendingSellers();
     }
 }

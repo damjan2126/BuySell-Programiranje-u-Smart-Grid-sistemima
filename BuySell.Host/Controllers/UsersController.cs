@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using BuySell.Contracts.DTOs.UserStatus;
+using System.Reflection.Metadata.Ecma335;
 
 namespace BuySell.Host.Controllers
 {
@@ -53,6 +54,16 @@ namespace BuySell.Host.Controllers
         [HttpGet("status")]
         [Authorize(Policy = "Seller")]
         public async Task<IActionResult> GetSellerStatus() => Ok(_mapper.Map<UserStatusViewDto>(await _userService.GetCurrentStatus(User.GetUserId())));
+
+        [HttpGet("/getPendingSellers")]
+        [Authorize(Policy = "Admin")]
+        public async Task<IActionResult> GetPendingSellers()
+        {
+            var pendingSellers = await _userService.GetPendingSellers() ?? 
+                throw new NotFoundException("No pending sellers");
+
+            return Ok(_mapper.Map<IEnumerable<UserStatusViewDto>>(pendingSellers));
+        }
 
         [AllowAnonymous]
         [HttpPost]
