@@ -1,4 +1,5 @@
 ﻿using BuySell.Data.Entities;
+using BuySell.Data.Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace BuySell.Data.Repositories.Contracts
 {
-    internal interface IItemRepository : IBaseRepository<Item>
+    public interface IItemRepository : IBaseRepository<Item>
     {
+        Task<IEnumerable<Item>> GetAllAsync(Query query, long sellerId);
     }
 }
