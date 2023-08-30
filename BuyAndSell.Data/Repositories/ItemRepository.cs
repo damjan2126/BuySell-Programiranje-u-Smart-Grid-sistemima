@@ -17,10 +17,11 @@ namespace BuySell.Data.Repositories
         {
         }
 
-        public async Task<IEnumerable<Item>> GetAllAsync(Query query, long sellerId)
+        public override async Task<IEnumerable<Item>> GetAllAsync(Query query)
         {
             return await Ctx.Items
-                .Where(x => x.CreatedByUserId == sellerId)
+                .Include(x => x.CreatedByUser)
+                .FilterBy(query)
                 .AddAsNoTracking(query)
                 .Sort(query)
                 .Paginate(query)

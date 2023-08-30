@@ -14,6 +14,6 @@ namespace BuySell.Business.Services.Contracts
         Task<Item> AddItem(ItemCreateDto newItem, long userId);
         Task<Item> UpdateItem(long itemId, ItemUpdateDto item, long userId);
         Task DeleteItem(long itemId, long userId);
-        Task<ItemListViewDto> GetItems(long? sellerId, Query query);
+        Task<ItemListViewDto> GetItems(ItemQuery query);
     }
 }

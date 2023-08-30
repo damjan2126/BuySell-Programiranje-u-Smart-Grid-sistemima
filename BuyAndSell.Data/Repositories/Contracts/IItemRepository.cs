@@ -10,6 +10,5 @@ namespace BuySell.Data.Repositories.Contracts
 {
     public interface IItemRepository : IBaseRepository<Item>
     {
-        Task<IEnumerable<Item>> GetAllAsync(Query query, long sellerId);
     }
 }

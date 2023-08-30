@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BuySell.Business.Services.Contracts;
+using BuySell.Contracts.DTOs.Filters;
 using BuySell.Contracts.DTOs.Item;
 using BuySell.Data.Resources;
 using BuySell.Host.Extensions;
@@ -50,11 +51,13 @@ namespace BuySell.Host.Controllers
             return Ok();
         }
 
-        [HttpGet("{id:long?}")]
+        [HttpGet]
         [Authorize(Policy = "Active")]
-        public async Task<IActionResult> GetItems(long? id, [FromBody]Query query)
+        public async Task<IActionResult> GetItems([FromQuery]ItemQueryFilterDto queryFilter)
         {
-            return Ok(_mapper.Map<ItemViewDto>(await _itemService.GetItems(id, query)));
+            var query = _mapper.Map<ItemQuery>(queryFilter);
+            var result = await _itemService.GetItems(query);
+            return Ok(result);
         }
     }
 }

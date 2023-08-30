@@ -46,11 +46,10 @@ namespace BuySell.Business.Services
             await _itemRepository.DeleteAsync(item);
         }
 
-        public async Task<ItemListViewDto> GetItems(long? sellerId, Query query)
+        public async Task<ItemListViewDto> GetItems(ItemQuery query)
         {
             query.AsNoTracking = true;
-            var items = sellerId.HasValue ? await _itemRepository.GetAllAsync(query, sellerId.Value) :
-                                            await _itemRepository.GetAllAsync(query);
+            var items = await _itemRepository.GetAllAsync(query);
             long count = await _itemRepository.CountAllAsync(query);
 
             var response = new ItemListViewDto()
