@@ -17,10 +17,11 @@ namespace BuySell.Business.MappingProfiles
         {
             CreateMap<ItemCreateDto, Item>();
             CreateMap<ItemUpdateDto, Item>();
-            CreateMap<Item, ItemViewDto>();
+            CreateMap<Item, ItemViewDto>()
+                .ForMember(dto => dto.DeliveryFee, opt => opt.MapFrom(it => it.CreatedByUser.DeliveryFee));
             CreateMap<ItemQueryFilterDto, ItemQuery>()
-                .ForMember(iq => iq.PageNumber, opt => opt.MapFrom(dto => dto.PageNumber.HasValue ? dto.PageNumber.Value : 1))
-                .ForMember(iq => iq.PageSize, opt => opt.MapFrom(dto => dto.PageSize.HasValue ? dto.PageSize.Value : 10));
+                .ForMember(iq => iq.PageNumber, opt => opt.MapFrom(dto => dto.PageNumber ?? 1))
+                .ForMember(iq => iq.PageSize, opt => opt.MapFrom(dto => dto.PageSize ?? 10));
         }
     }
 }

@@ -96,6 +96,7 @@ namespace BuySell.Host.Controllers
         public async Task<IActionResult> UpdateUser(long id,[FromBody] UserUpdateDto dto)
         {
             if (id != User.GetUserId()) throw new MethodNotAllowedException("Nije moguce menjati informacije drugih korisnika");
+            if (!User.GetRoles().Contains("Seller") && dto.DeliveryFee.HasValue) throw new MethodNotAllowedException("Nije moguce menjati DeliveryFee");
 
             var result = await new UpdateUserDtoValidator().ValidateAsync(dto);
             if (!result.IsValid) throw new ValidationException(result.Errors);

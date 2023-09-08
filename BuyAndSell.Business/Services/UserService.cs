@@ -189,7 +189,7 @@ namespace BuySell.Business.Services
             var user = await GetUserByIdAsync(id, query) ??
                 throw new NotFoundException("Nije pronađen korisnik");
 
-            user = _mapper.Map<User>(dto);
+            _mapper.Map(dto, user);
 
             var result = await _userManager.UpdateAsync(user);
 

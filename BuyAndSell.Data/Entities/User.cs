@@ -18,5 +18,6 @@ namespace BuySell.Data.Entities
         public string? ImageUrl { get; set; }
         public DateTime? LastLoginDate { get; set; }
         public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
+        public int? DeliveryFee { get; set; }
     }
 }

@@ -43,6 +43,7 @@ namespace BuySell.Data.Repositories
         public virtual async Task<TEntityModel?> GetAsync(long id, Query query)
         {
             return await Entity
+                .Include(x => x.CreatedByUser)
                 .AddAsNoTracking(query)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -50,6 +51,7 @@ namespace BuySell.Data.Repositories
         public virtual async Task<TEntityModel?> GetAsync(long id, bool asNoTracking = false)
         {
             return await Entity
+                .Include(x => x.CreatedByUser)
                 .AddAsNoTracking(asNoTracking)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
@@ -57,6 +59,7 @@ namespace BuySell.Data.Repositories
         public virtual async Task<IEnumerable<TEntityModel>> GetAllAsync(Query query)
         {
             return await Entity
+                .Include(x => x.CreatedByUser)
                 .FilterBy(query)
                 .AddAsNoTracking(query)
                 .Sort(query)
@@ -68,6 +71,7 @@ namespace BuySell.Data.Repositories
             bool asNoTracking = false)
         {
             return await Entity
+                .Include(x => x.CreatedByUser)
                 .AddAsNoTracking(asNoTracking)
                 .FirstOrDefaultAsync(predicate);
         }
@@ -86,9 +90,10 @@ namespace BuySell.Data.Repositories
         public virtual async Task<IEnumerable<TEntityModel>> GetAllByIds(IEnumerable<long> ids, bool asNoTracking = false)
         {
             return await Entity
-                 .Where(x => ids.Contains(x.Id))
-                 .AddAsNoTracking(asNoTracking)
-                 .ToListAsync();
+                    .Include(x => x.CreatedByUser)
+                    .Where(x => ids.Contains(x.Id))
+                    .AddAsNoTracking(asNoTracking)
+                    .ToListAsync();
         }
 
         public IDbContextTransaction NewDbContextTransaction()

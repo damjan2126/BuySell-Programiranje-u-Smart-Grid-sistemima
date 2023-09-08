@@ -14,5 +14,6 @@ namespace BuySell.Contracts.DTOs.Item
         public int Ammount { get; set; }
         public string Description { get; set; } = default!;
         public string ImageUrl { get; set; } = default!;
+        public string DeliveryFee { get; set; } = default!;
     }
 }

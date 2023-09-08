@@ -14,6 +14,7 @@ namespace BuySell.Contracts.DTOs.User
         public DateTime? DateOfBirth { get; set; }
         public string? Address { get; set; }
         public string? ImageUrl { get; set; }
+        public int? DeliveryFee { get; set; }
 
     }
 }
