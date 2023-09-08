@@ -95,7 +95,7 @@ namespace BuySell.Host.Middlewares
             context.Response.ContentType = "application/json";
             var response = new
             {
-                Message = message ?? "Nešto nije u redu",
+                Message = message ?? $"Nešto nije u redu {exception.Message}",
                 StackTrace = exception.StackTrace
             };
 

@@ -40,9 +40,9 @@ namespace BuySell.Host.Controllers
 
         [HttpGet("{id}")]
         [Authorize(Policy = "Active")]
-        public async Task<IActionResult> GetUserById(long id, [FromQuery] Query query)
+        public async Task<IActionResult> GetUserById(long id)
         {
-            var user = await _userService.GetUserByIdAsync(id, query);
+            var user = await _userService.GetUserByIdAsync(id);
 
             if (user is null)
                 return NotFound("Korisnik nije pronađen");

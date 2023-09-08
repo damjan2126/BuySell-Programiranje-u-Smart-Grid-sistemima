@@ -17,6 +17,7 @@ namespace BuySell.Host.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IEmailService, EmailService>();
             services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<IOrderService, OrderService>();
 
             services.AddScoped<IScopedEmailService, ScopedEmailService>();
 

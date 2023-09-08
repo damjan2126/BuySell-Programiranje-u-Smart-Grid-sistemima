@@ -1,4 +1,5 @@
 ﻿using BuySell.Data.Entities;
+using BuySell.Data.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,5 +10,6 @@ namespace BuySell.Data.Repositories.Contracts
 {
     public interface IOrderRepository : IBaseRepository<Order>
     {
+        Task<Order?> GetOrderByStatus(OrderStatusEnum status, long userId);
     }
 }

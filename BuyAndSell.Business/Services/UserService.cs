@@ -134,7 +134,7 @@ namespace BuySell.Business.Services
             return response;
         }
 
-        public async Task<User?> GetUserByIdAsync(long id, Query query)
+        public async Task<User?> GetUserByIdAsync(long id)
         {
             return await _userManager.Users
                 .Include(u => u.Roles)
@@ -185,8 +185,7 @@ namespace BuySell.Business.Services
 
         public async Task<bool> UpdateUserAsync(UserUpdateDto dto, long id)
         {
-            var query = new Query();
-            var user = await GetUserByIdAsync(id, query) ??
+            var user = await GetUserByIdAsync(id) ??
                 throw new NotFoundException("Nije pronađen korisnik");
 
             _mapper.Map(dto, user);
@@ -200,8 +199,7 @@ namespace BuySell.Business.Services
 
         public async Task<bool> ChangePasswordAsync(UserChangePasswordDto requestDto, long id)
         {
-            var query = new Query();
-            var user = await GetUserByIdAsync(id, query) ??
+            var user = await GetUserByIdAsync(id) ??
                 throw new NotFoundException("Nije pronađen korisnik");
 
             await _userManager.RemovePasswordAsync(user);
@@ -239,7 +237,7 @@ namespace BuySell.Business.Services
 
             await _userStatusRepository.CreateAsync(newStatus);
 
-            var user = await GetUserByIdAsync(userId, new Query()) ??
+            var user = await GetUserByIdAsync(userId) ??
                 throw new NotFoundException("Nije pronadjen korisnik sa datim id-jem");
 
             await _userManager.AddToRoleAsync(user, RoleEnum.Active.ToString());
@@ -283,7 +281,7 @@ namespace BuySell.Business.Services
 
             await _userStatusRepository.CreateAsync(newStatus);
 
-            var user = await GetUserByIdAsync(userId, new Query()) ??
+            var user = await GetUserByIdAsync(userId) ??
                 throw new NotFoundException("Nije pronadjen korisnik sa datim id-jem");
 
             await SendEmail(user.Email, "Registration status update", "Registration rejected", adminId);

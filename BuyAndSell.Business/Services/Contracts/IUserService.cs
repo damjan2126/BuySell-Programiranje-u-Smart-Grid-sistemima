@@ -11,7 +11,7 @@ namespace BuySell.Business.Services.Contracts
         Task<bool> ChangePasswordAsync(UserChangePasswordDto requestDto, long id);
         Task<User?> CreateUserAsync(UserCreateDto dto);
         Task<UserListViewDto> GetAllUsersAsync(Query query);
-        Task<User?> GetUserByIdAsync(long id, Query query);
+        Task<User?> GetUserByIdAsync(long id);
         Task<AuthenticateResponseDto?> RefreshTokenAsync(string refreshToken);
         Task RevokeTokenAsync(long id, string tokenToRevoke);
         Task<bool> UpdateUserAsync(UserUpdateDto dto, long userId);

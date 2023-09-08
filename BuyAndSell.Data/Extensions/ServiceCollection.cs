@@ -35,6 +35,8 @@ namespace BuySell.Data.Extensions
             services.AddScoped<IUserStatusRepository, UserStatusRepository>();
             services.AddScoped<IEmailRepository, EmailRepository>();
             services.AddScoped<IItemRepository, ItemRepository>();
+            services.AddScoped<IOrderItemRepository, OrderItemRepository>();
+            services.AddScoped<IOrderRepository, OrderRepository>();
         }
     }
 }
