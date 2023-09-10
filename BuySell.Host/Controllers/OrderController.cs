@@ -48,7 +48,7 @@ namespace BuySell.Host.Controllers
             return Ok(_mapper.Map<OrderViewDto>(await _orderService.GetOrder(User.GetUserId())));
         }
 
-        [HttpPatch("{id:long}")]
+        [HttpPatch("{id:long}/state")]
         [Authorize(Policy = "Buyer")]
         public async Task<IActionResult> ChangeState(long id, ChangeOrderStateDto dto)
         {
@@ -64,7 +64,7 @@ namespace BuySell.Host.Controllers
             return Ok(result);
         }
 
-        [HttpPatch("{id:long")]
+        [HttpPatch("{id:long}")]
         public async Task<IActionResult> OrderUptade(long id, [FromBody] OrderUpdateDto dto)
         {
             return Ok(_mapper.Map<OrderViewDto>(await _orderService.UpdateOrder(id, dto, User.GetUserId())));
