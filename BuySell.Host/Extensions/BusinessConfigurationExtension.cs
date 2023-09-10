@@ -22,6 +22,7 @@ namespace BuySell.Host.Extensions
             services.AddScoped<IScopedEmailService, ScopedEmailService>();
 
             services.AddHostedService<TimedEmailService>();
+            services.AddHostedService<OrderUpdateService>();
         }
     }
 }

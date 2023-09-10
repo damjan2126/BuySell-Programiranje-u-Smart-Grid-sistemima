@@ -93,6 +93,19 @@ namespace BuySell.Data.Extensions
             return source.Provider.CreateQuery<TSource>(resultExpression);
         }
 
+        public static IQueryable<T> FilterByStatus<T>(this IQueryable<T> source, List<int>? status = null) where T : class
+        {
+            if (status == null || status.Count == 0) return source;
+
+            var orders = source.Cast<Order>();
+            orders = orders.FilterStatus(status);
+            return orders.Cast<T>();
+        }
+
+        private static IQueryable<Order> FilterStatus(this IQueryable<Order> source, List<int> status)
+        {
+            return source.Where(x => status.Contains((int)x.Status));
+        }
         private static IQueryable<TSource> CreateCompositeSort<TSource>(IQueryable<TSource> source,
             Type type,
             PropertyInfo property1,
