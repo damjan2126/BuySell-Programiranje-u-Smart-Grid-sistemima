@@ -38,6 +38,12 @@ namespace BuySell.Host.Controllers
             return Ok(response);
         }
 
+        [HttpGet("Me")]
+        public async Task<IActionResult> GetMe()
+        {
+            return Ok(_mapper.Map<UserViewDto>(await _userService.GetUserByIdAsync(User.GetUserId())));
+        }
+
         [HttpGet("{id}")]
         [Authorize(Policy = "Active")]
         public async Task<IActionResult> GetUserById(long id)
