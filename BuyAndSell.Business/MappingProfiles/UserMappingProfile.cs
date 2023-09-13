@@ -24,6 +24,10 @@ namespace BuySell.Business.MappingProfiles
 
         private static bool GetIsActive(User user)
         {
+            if(user.Roles.Select(x => x.Name).Contains("Buyer") || user.Roles.Select(x => x.Name).Contains("Admin"))
+            {
+                return true;
+            }
             return user.Statuses.OrderByDescending(x => x.CreatedAtUtc).First().Status == Data.Enums.UserStatusEnum.Processing ? true : false;
         }
     }
