@@ -19,5 +19,6 @@ namespace BuySell.Data.Entities
         public DateTime? LastLoginDate { get; set; }
         public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
         public int? DeliveryFee { get; set; }
+        public virtual List<UserStatus> Statuses { get; set; } = default!;
     }
 }

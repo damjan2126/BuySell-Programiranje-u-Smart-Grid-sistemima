@@ -164,6 +164,7 @@ namespace BuySell.Business.Services
             if (dto.Role.Equals(RoleEnum.Buyer.ToString(), StringComparison.CurrentCultureIgnoreCase))
             {
                 await _userManager.AddToRoleAsync(user, RoleEnum.Active.ToString());
+                
                 return user;
             }
 

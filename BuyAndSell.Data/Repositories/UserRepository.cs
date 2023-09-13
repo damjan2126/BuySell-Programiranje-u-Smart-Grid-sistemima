@@ -25,6 +25,7 @@ namespace BuySell.Data.Repositories
         {
             return await _ctx.Users
                 .Include(x => x.Roles)
+                .Include(x => x.Statuses)
                 .FilterBy(query)
                 .Sort(query)
                 .OrderBy(x => x.FirstName)
@@ -59,6 +60,7 @@ namespace BuySell.Data.Repositories
         {
             return await _ctx.Users
                 .Include(x => x.Roles)
+                .Include(x => x.Statuses)
                 .Where(predicate)
                 .AddAsNoTracking(asNoTracking)
                 .ToListAsync();

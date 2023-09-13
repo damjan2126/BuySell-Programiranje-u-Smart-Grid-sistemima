@@ -15,10 +15,16 @@ namespace BuySell.Business.MappingProfiles
         public UserMappingProfile()
         {
             CreateMap<User, UserViewDto>()
-            .ForMember(x => x.Roles, opt => opt.MapFrom(y => y.Roles.Select(x => x.Name).ToList()));
+            .ForMember(x => x.Roles, opt => opt.MapFrom(y => y.Roles.Select(x => x.Name).ToList()))
+            .ForMember(x => x.IsActive, opt => opt.MapFrom(y => GetIsActive(y)));
 
             CreateMap<UserCreateDto, User>();
             CreateMap<UserUpdateDto, User>();
+        }
+
+        private static bool GetIsActive(User user)
+        {
+            return user.Statuses.OrderByDescending(x => x.CreatedAtUtc).First().Status == Data.Enums.UserStatusEnum.Processing ? true : false;
         }
     }
 }

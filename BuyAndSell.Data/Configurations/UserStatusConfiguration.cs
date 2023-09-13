@@ -15,6 +15,10 @@ namespace BuySell.Data.Configurations
         public void Configure(EntityTypeBuilder<UserStatus> builder)
         {
             builder.HasIndex(x => x.Status);
+
+            builder.HasOne(x => x.User)
+                .WithMany(x => x.Statuses)
+                .HasForeignKey(x => x.UserId);
         }
     }
 }
