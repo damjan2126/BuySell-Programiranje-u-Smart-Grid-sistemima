@@ -316,9 +316,26 @@ namespace BuySell.Business.Services
 
         public async Task<IEnumerable<UserStatus>?> GetPendingSellers()
         {
-            var pendingSellers = await _userStatusRepository.GetAllAsync(x => x.Status.Equals(UserStatusEnum.Processing));
+            var users = await _userRepository.GetAllAsync(new Query());
 
-            return pendingSellers.IsNullOrEmpty() ? null : pendingSellers;
+            List<UserStatus> satuses = new();
+
+            foreach(var user in users)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                if (roles.Contains("Seller") && !roles.Contains("Admin"))
+                {
+                    var status = await GetCurrentStatus(user.Id);
+                    if(status.Status == UserStatusEnum.Processing)
+                    {
+                        satuses.Add(status);
+
+                    }
+                }
+                
+            }
+
+            return satuses;
         }
     }
 }
