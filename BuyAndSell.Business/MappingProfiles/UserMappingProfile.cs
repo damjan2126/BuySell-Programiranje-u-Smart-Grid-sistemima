@@ -28,7 +28,7 @@ namespace BuySell.Business.MappingProfiles
             {
                 return true;
             }
-            return user.Statuses.OrderByDescending(x => x.CreatedAtUtc).First().Status == Data.Enums.UserStatusEnum.Processing ? true : false;
+            return user.Roles.Select(x => x.Name).Contains("Active") ? true : false;
         }
     }
 }
