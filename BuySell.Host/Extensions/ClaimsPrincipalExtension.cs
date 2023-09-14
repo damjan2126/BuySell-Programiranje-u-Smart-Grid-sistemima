@@ -17,12 +17,11 @@ namespace BuySell.Host.Extensions
 
         internal static List<string> GetRoles(this ClaimsPrincipal user)
         {
-            var userRole = user.Claims.FirstOrDefault(c => c.Type == ClaimTypeEnum.Roles.ToString()) ?? 
+            var userRole = user.Claims.Where(c => c.Type == ClaimTypeEnum.Roles.ToString()).Select(x => x.Value).ToList() ?? 
                 throw new InvalidTokenException("Unauthorized token");
             
-            var roles = JsonSerializer.Deserialize<List<string>>(userRole.Value) ?? new();
 
-            return roles;
+            return (List<string>)userRole;
         }
     }
 }
