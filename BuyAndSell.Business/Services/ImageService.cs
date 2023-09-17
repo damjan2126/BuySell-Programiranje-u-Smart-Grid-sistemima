@@ -23,14 +23,13 @@ namespace BuySell.Business.Services
             return await File.ReadAllBytesAsync(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "NAS", fileName));
         }
 
-        public async Task<List<string>> UploadImagesAsync(List<IFormFile> images)
+        public async Task<List<string>> UploadImagesAsync(IFormFile image)
         {
             var imageUrls = new List<string>();
-            foreach (var image in images)
-            {
-                var fileName = await UploadFileLocal(image);
-                imageUrls.Add(fileName);
-            }
+
+            var fileName = await UploadFileLocal(image);
+            imageUrls.Add(fileName);
+
 
             return imageUrls;
         }

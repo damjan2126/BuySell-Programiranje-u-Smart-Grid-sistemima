@@ -21,6 +21,8 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Google.Apis.Auth;
 
 namespace BuySell.Business.Services
 {
@@ -33,6 +35,7 @@ namespace BuySell.Business.Services
         private readonly AuthorizationSettings _authSettings;
         private readonly IMapper _mapper;
         private readonly IEmailRepository _emailRepository;
+        private readonly IConfigurationSection _googleCredentials;
 
         public UserService(IOptions<AuthorizationSettings> authSettings,
                            SignInManager<User> signInManager,
@@ -40,7 +43,8 @@ namespace BuySell.Business.Services
                            IUserRepository userRepository,
                            IUserStatusRepository userStatusRepository,
                            IMapper mapper,
-                           IEmailRepository emailRepository)
+                           IEmailRepository emailRepository,
+                           IConfiguration config)
         {
             _signInManager = signInManager;
             _userManager = userManager;
@@ -49,6 +53,7 @@ namespace BuySell.Business.Services
             _authSettings = authSettings.Value;
             _mapper = mapper;
             _emailRepository = emailRepository;
+            _googleCredentials = config.GetSection("GoogleClientId");
         }
 
         public async Task<AuthenticateResponseDto?> AuthenticateAsync(AuthenticateRequestDto model)
@@ -337,6 +342,53 @@ namespace BuySell.Business.Services
             }
 
             return satuses;
+        }
+
+        public async Task<AuthenticateResponseDto> GoogleAuth(GoogleSignInDto dto)
+        {
+            var payload = await GoogleJsonWebSignature.ValidateAsync(dto.GoogleToken);
+            if (payload.Audience.ToString() != _googleCredentials.Value)
+            {
+                throw new InvalidJwtException("Invalid google token.");
+            }
+
+            var user = await _userRepository.GetAsync(x => x.Email.Equals(payload.Email));
+
+            if(user == null)
+            {
+                UserCreateDto createDto = new()
+                {
+                    Email = payload.Email,
+                    UserName = payload.GivenName + "_" + payload.FamilyName,
+                    Firstname = payload.GivenName,
+                    LastName = payload.FamilyName,
+                    Password = "String123.",
+                    Address = "Google address",
+                    DateOfBirth = new DateTime(2000, 10, 10),
+                    Role = "Buyer"
+                };
+
+                user = await CreateUserAsync(createDto);
+            }
+            var roles = await _userManager.GetRolesAsync(user!);
+
+            var token = GenerateJwtToken(user!, roles, DateTime.Now.AddMinutes(_authSettings.ExpiryInMinutes));
+            var refresh = GenerateRefreshToken();
+
+            user!.RefreshTokens.Add(new()
+            {
+                Token = refresh,
+                RefreshTokenExpiryTime = DateTime.Now.AddMinutes(_authSettings.RefreshTokenExpiryInMinutes)
+            });
+            user.LastLoginDate = DateTime.UtcNow;
+            await _userManager.UpdateAsync(user);
+
+            return new AuthenticateResponseDto
+            {
+                Token = token,
+                RefreshToken = refresh
+            };
+
         }
     }
 }

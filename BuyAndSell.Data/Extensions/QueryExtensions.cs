@@ -155,7 +155,7 @@ namespace BuySell.Data.Extensions
                 .GetProperties(BindingFlags.Public
                                | BindingFlags.Instance
                                | BindingFlags.DeclaredOnly);
-
+            
             var propsWithoutMinMax = props
                 .Where(x => !x.Name.AsSpan().StartsWith("Min")
                             && !x.Name.AsSpan().StartsWith("Max"))
@@ -192,6 +192,10 @@ namespace BuySell.Data.Extensions
 
             foreach (var propertyInfo in propsWithoutMinMax)
             {
+                if (propertyInfo.Name.Equals("SellerId"))
+                {
+                    continue;
+                }
                 Expression expression;
                 if (propertyInfo.PropertyType.ToString().Contains("List"))
                 {

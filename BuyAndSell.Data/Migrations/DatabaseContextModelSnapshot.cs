@@ -59,7 +59,7 @@ namespace BuySell.Data.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Emails");
+                    b.ToTable("Emails", (string)null);
                 });
 
             modelBuilder.Entity("BuySell.Data.Entities.Item", b =>
@@ -104,7 +104,7 @@ namespace BuySell.Data.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Items");
+                    b.ToTable("Items", (string)null);
                 });
 
             modelBuilder.Entity("BuySell.Data.Entities.Order", b =>
@@ -148,7 +148,7 @@ namespace BuySell.Data.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("BuySell.Data.Entities.OrderItem", b =>
@@ -188,7 +188,7 @@ namespace BuySell.Data.Migrations
 
                     b.HasIndex("UpdatedByUserId");
 
-                    b.ToTable("OrderItems");
+                    b.ToTable("OrderItems", (string)null);
                 });
 
             modelBuilder.Entity("BuySell.Data.Entities.RefreshToken", b =>
@@ -211,7 +211,7 @@ namespace BuySell.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshTokens");
+                    b.ToTable("RefreshTokens", (string)null);
                 });
 
             modelBuilder.Entity("BuySell.Data.Entities.Role", b =>
@@ -366,7 +366,7 @@ namespace BuySell.Data.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserStatus");
+                    b.ToTable("UserStatus", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<long>", b =>

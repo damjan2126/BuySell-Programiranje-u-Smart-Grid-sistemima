@@ -124,6 +124,13 @@ namespace BuySell.Host.Controllers
             return Ok(response);
         }
 
+        [HttpPost("authenticate/google")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SignInGoogle([FromBody] GoogleSignInDto dto)
+        {
+            return Ok(await _userService.GoogleAuth(dto));
+        }
+
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public async Task<IActionResult> Authenticate([FromBody] AuthenticateRequestDto model)

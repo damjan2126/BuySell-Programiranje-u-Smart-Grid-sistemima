@@ -20,15 +20,16 @@ public class ImagesController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> UploadImages([FromForm] List<IFormFile> images)
+    //public async Task<IActionResult> UploadImages([FromBody] ImageForm image)
+    public async Task<IActionResult> UploadImages([FromForm] IFormFile image)
     {
-        var result = await new ImagesValidator().ValidateAsync(images);
+        var result = await new ImagesValidator().ValidateAsync(image);
         if (!result.IsValid)
         {
             throw new ValidationException(result.Errors);
         }
 
-        var imageUrls = await _imageService.UploadImagesAsync(images);
+        var imageUrls = await _imageService.UploadImagesAsync(image);
         return Ok(imageUrls);
     }
 

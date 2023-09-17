@@ -6,6 +6,6 @@ namespace BuySell.Business.Services.Contracts
     {
         Task<byte[]> GetImageAsync(string fileName);
         Task<string?> UploadImageAsync(IFormFile? image);
-        Task<List<string>> UploadImagesAsync(List<IFormFile> images);
+        Task<List<string>> UploadImagesAsync(IFormFile image);
     }
 }

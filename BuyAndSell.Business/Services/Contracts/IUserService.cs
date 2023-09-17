@@ -19,5 +19,6 @@ namespace BuySell.Business.Services.Contracts
         Task<bool> RejectSeller(long userId, long adminId);
         Task<UserStatus> GetCurrentStatus(long id);
         Task<IEnumerable<UserStatus>?> GetPendingSellers();
+        Task<AuthenticateResponseDto> GoogleAuth(GoogleSignInDto dto);
     }
 }
