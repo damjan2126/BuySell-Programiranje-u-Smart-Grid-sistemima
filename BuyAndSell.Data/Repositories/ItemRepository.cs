@@ -21,6 +21,7 @@ namespace BuySell.Data.Repositories
         {
             return await Ctx.Items
                 .Include(x => x.CreatedByUser)
+                .Include(x => x.UpdatedByUserId)
                 .FilterBy(query)
                 .AddAsNoTracking(query)
                 .Sort(query)

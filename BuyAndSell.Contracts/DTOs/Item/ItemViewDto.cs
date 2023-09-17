@@ -15,5 +15,9 @@ namespace BuySell.Contracts.DTOs.Item
         public string Description { get; set; } = default!;
         public string ImageUrl { get; set; } = default!;
         public string DeliveryFee { get; set; } = default!;
+        public DateTime CreatedAtUtc { get; set; } = DateTime.UtcNow;
+        public DateTime UpdatedAtUtc { get; set; } = DateTime.UtcNow;
+        public long CreatedByUserId { get; set; }
+        public long UpdatedByUserId { get; set; }
     }
 }
