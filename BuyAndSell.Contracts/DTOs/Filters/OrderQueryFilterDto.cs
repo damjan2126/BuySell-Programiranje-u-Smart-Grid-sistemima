@@ -14,5 +14,6 @@ namespace BuySell.Contracts.DTOs.Filters
         public long? UpdatedByUserId { get; set; }
         public DateTime? MinDeliveryTime { get; set; }
         public DateTime? MaxDeliveryTime { get; set; }
+        public long? SellerId { get; set; }
     }
 }

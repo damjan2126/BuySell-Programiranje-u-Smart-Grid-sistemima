@@ -56,13 +56,20 @@ namespace BuySell.Data.Repositories
 
         public async Task<IEnumerable<Order>> GetAllAsync(OrderQuery query, List<int>? status)
         {
-            return await Ctx.Orders
+            var queryBase = Ctx.Orders
                 .Include(x => x.CreatedByUser)
                 .Include(x => x.Items)
                 .ThenInclude(x => x.Item)
                 .ThenInclude(x => x.CreatedByUser)
                 .FilterBy(query)
-                .FilterByStatus(status)
+                .FilterByStatus(status);
+
+            if (query.SellerId.HasValue)
+            {
+                queryBase = queryBase.Where(x => x.Items.Any(y => y.CreatedByUserId == query.SellerId.Value));
+            }
+
+            return await queryBase
                 .AddAsNoTracking(query)
                 .Sort(query)
                 .Paginate(query)
