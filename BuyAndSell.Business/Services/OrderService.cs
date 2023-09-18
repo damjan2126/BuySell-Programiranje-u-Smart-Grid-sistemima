@@ -38,8 +38,6 @@ namespace BuySell.Business.Services
                 activeOrder.Items.AddRange(orderItems);
                 await _orderRepository.UpdateAsync(activeOrder);
 
-
-
                 return activeOrder;
             }
 
@@ -88,11 +86,17 @@ namespace BuySell.Business.Services
             {
                 var item = order.Items.FirstOrDefault(x => x.ItemId == entity.Id)!;
                 entity.Ammount -= item.Amount;
-                if (entity.Ammount < 0) throw new MethodNotAllowedException($"Nije moguce izvrsiti porudzbinu, Predmet: {entity.Name} nema dovoljno kolicine");
+                if (entity.Ammount < 0) 
+                {
+                    order.Items.RemoveAll(x => true);
+                    await _orderRepository.UpdateAsync(order);
+
+                    throw new MethodNotAllowedException($"Nije moguce izvrsiti porudzbinu, Predmet: {entity.Name} nema dovoljno kolicine");
+                }
 
                 await _itemRepository.UpdateAsync(entity);
 
-                order.Cost += entity.Price * item.Amount + entity.CreatedByUser.DeliveryFee ?? 0;
+                order.Cost += entity.Price * item.Amount + (entity.CreatedByUser.DeliveryFee ?? 0);
             }
 
             Random random = new();

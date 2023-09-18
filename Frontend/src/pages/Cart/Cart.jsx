@@ -19,7 +19,7 @@ const Cart = () => {
          items: [],
       };
       state.forEach((item) => {
-         order.items.push({ itemId: item.item.id, ammount: item.item.ammount });
+         order.items.push({ itemId: item.item.id, amount: item.quantity });
       });
       return order;
    }, [state]);

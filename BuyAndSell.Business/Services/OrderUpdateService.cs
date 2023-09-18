@@ -34,10 +34,6 @@ namespace BuySell.Business.Services
                 var orders = await orderRepository.GetAllAsync(new OrderQuery()
                 {
                     MaxDeliveryTime = DateTime.UtcNow
-                }, 
-                new List<int>()
-                {
-                    (int)OrderStatusEnum.InProgress
                 });
 
                 foreach(var order in orders)

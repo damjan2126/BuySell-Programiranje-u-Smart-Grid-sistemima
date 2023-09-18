@@ -45,7 +45,7 @@ const AddItem = ({ refetch, closeModal }) => {
          <Form onSubmit={handleSubmit(onSubmit)}>
             <YupInput control={control} name="name" type="text" placeholder="Name" errorBorder />
             <YupInput control={control} name="price" type="number" placeholder="Price" errorBorder />
-            <YupInput control={control} name="ammount" type="number" placeholder="Ammount" errorBorder />
+            <YupInput control={control} name="amount" type="number" placeholder="Amount" errorBorder />
             <YupInput control={control} name="description" type="text" placeholder="Description" errorBorder />
             <input type="file" onChange={(e) => setFile(e.target.files[0])} />
 
